@@ -33,3 +33,4 @@ go.work
 .DS_Store
 tmp
 .env
+!.env.test
