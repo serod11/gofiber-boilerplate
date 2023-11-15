@@ -25,7 +25,7 @@ The codebase uses the following Go packages.
 .
 ├── cmd                  main applications of the project
 │   └── server           the API server application
-├──pkg                   reusable packages
+├── pkg                  reusable packages
 │   ├── config           config
 │   ├── model            database entities
 │   ├── repo             data access layer
