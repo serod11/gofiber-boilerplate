@@ -25,12 +25,13 @@ The codebase uses the following Go packages.
 .
 ├── cmd                  main applications of the project
 │   └── server           the API server application
-└── pkg                  reusable packages
-    ├── config           config
-    ├── model            database entities
-    ├── repo             data access layer
-    ├── service          bussiness logic
-    └── utils            utility functions like initialize database connection 
+├──pkg                   reusable packages
+│   ├── config           config
+│   ├── model            database entities
+│   ├── repo             data access layer
+│   ├── service          bussiness logic
+│   └── utils            utility functions like initialize database connection 
+└── test                 test files   
 ```
 
 The top level directories `cmd`, `pkg` are commonly found in other popular Go projects,
