@@ -7,6 +7,7 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/serod11/gofiber-boilerplate/pkg/config"
+	"github.com/serod11/gofiber-boilerplate/pkg/model"
 	"github.com/serod11/gofiber-boilerplate/pkg/repo"
 	"github.com/serod11/gofiber-boilerplate/pkg/service"
 	"github.com/serod11/gofiber-boilerplate/pkg/utils/db"
@@ -47,6 +48,14 @@ func main() {
 		}
 		book, _ := bookService.GetBook(uint(id))
 		return ctx.JSON(book)
+	})
+	bookRoute.Post("/", func(ctx *fiber.Ctx) error {
+		body := new(model.BookRequest)
+		if err := ctx.BodyParser(body); err != nil {
+			return err
+		}
+		bookService.AddBook(*body)
+		return ctx.SendStatus(fiber.StatusOK)
 	})
 
 	app.Listen(":8080") // use c.Port instead

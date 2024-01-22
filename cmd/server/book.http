@@ -1,0 +1,17 @@
+### Book list
+GET {{host}}/book
+Accept: application/json
+
+### Book by id
+GET {{host}}/book/1
+Accept: application/json
+
+### Add book
+POST {{host}}/book
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Peter Pan",
+  "page": 240
+}

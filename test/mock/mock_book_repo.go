@@ -13,6 +13,7 @@ import (
 
 	model "github.com/serod11/gofiber-boilerplate/pkg/model"
 	gomock "go.uber.org/mock/gomock"
+	gorm "gorm.io/gorm"
 )
 
 // MockBookRepo is a mock of BookRepo interface.
@@ -38,12 +39,41 @@ func (m *MockBookRepo) EXPECT() *MockBookRepoMockRecorder {
 	return m.recorder
 }
 
+// Create mocks base method.
+func (m *MockBookRepo) Create(arg0 *gorm.DB, arg1 model.Book) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Create", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Create indicates an expected call of Create.
+func (mr *MockBookRepoMockRecorder) Create(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockBookRepo)(nil).Create), arg0, arg1)
+}
+
+// CreateTxn mocks base method.
+func (m *MockBookRepo) CreateTxn() *gorm.DB {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateTxn")
+	ret0, _ := ret[0].(*gorm.DB)
+	return ret0
+}
+
+// CreateTxn indicates an expected call of CreateTxn.
+func (mr *MockBookRepoMockRecorder) CreateTxn() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTxn", reflect.TypeOf((*MockBookRepo)(nil).CreateTxn))
+}
+
 // FindAll mocks base method.
-func (m *MockBookRepo) FindAll() []model.Book {
+func (m *MockBookRepo) FindAll() ([]model.Book, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindAll")
 	ret0, _ := ret[0].([]model.Book)
-	return ret0
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // FindAll indicates an expected call of FindAll.
@@ -53,11 +83,12 @@ func (mr *MockBookRepoMockRecorder) FindAll() *gomock.Call {
 }
 
 // FindById mocks base method.
-func (m *MockBookRepo) FindById(arg0 uint) model.Book {
+func (m *MockBookRepo) FindById(arg0 uint) (model.Book, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindById", arg0)
 	ret0, _ := ret[0].(model.Book)
-	return ret0
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // FindById indicates an expected call of FindById.

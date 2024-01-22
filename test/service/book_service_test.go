@@ -16,7 +16,7 @@ import (
 func TestGetAllBooks(t *testing.T) {
 	ctl := gomock.NewController(t)
 	mockRepo := mock.NewMockBookRepo(ctl)
-	mockRepo.EXPECT().FindAll().Return([]model.Book{{ID: 1, Name: "Clean Code", Page: 464}})
+	mockRepo.EXPECT().FindAll().Return([]model.Book{{ID: 1, Name: "Clean Code", Page: 464}}, nil)
 	bookService := service.BookService{
 		BookRepo: mockRepo,
 	}
@@ -28,7 +28,7 @@ func TestGetAllBooks(t *testing.T) {
 func TestGetBook(t *testing.T) {
 	ctl := gomock.NewController(t)
 	mockRepo := mock.NewMockBookRepo(ctl)
-	mockRepo.EXPECT().FindById(uint(1)).Return(model.Book{ID: 1, Name: "Harry Potter", Page: 389})
+	mockRepo.EXPECT().FindById(uint(1)).Return(model.Book{ID: 1, Name: "Harry Potter", Page: 389}, nil)
 	bookService := service.BookService{
 		BookRepo: mockRepo,
 	}
@@ -38,4 +38,25 @@ func TestGetBook(t *testing.T) {
 	}
 	t.Log(book)
 	assert.Equal(t, uint(389), book.Page, "Book page should be 389")
+}
+
+func TestAddBook(t *testing.T) {
+	ctl := gomock.NewController(t)
+	mockRepo := mock.NewMockBookRepo(ctl)
+	mockRepo.EXPECT().CreateTxn().Return(nil)
+	mockRepo.EXPECT().
+		Create(gomock.Any(), gomock.Eq(model.Book{
+			Name: "Peter Pan",
+			Page: 240,
+		})).Return(nil)
+	bookService := service.BookService{
+		BookRepo: mockRepo,
+	}
+	err := bookService.AddBook(model.BookRequest{
+		Name: "Peter Pan",
+		Page: 240,
+	})
+	if err != nil {
+		t.Error(err)
+	}
 }

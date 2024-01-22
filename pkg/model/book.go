@@ -9,3 +9,8 @@ type Book struct {
 	Name string `gorm:"size:128" json:"name"`
 	Page uint   `gorm:"" json:"page"`
 }
+
+type BookRequest struct {
+	Name string `json:"name"`
+	Page uint   `json:"page"`
+}
