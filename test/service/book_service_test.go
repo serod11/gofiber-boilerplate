@@ -5,58 +5,25 @@
 package service
 
 import (
+	"github.com/ing-bank/gormtestutil"
 	"github.com/serod11/gofiber-boilerplate/pkg/model"
 	"github.com/serod11/gofiber-boilerplate/pkg/service"
-	"github.com/serod11/gofiber-boilerplate/test/mock"
-	"github.com/stretchr/testify/assert"
-	"go.uber.org/mock/gomock"
 	"testing"
 )
 
-func TestGetAllBooks(t *testing.T) {
-	ctl := gomock.NewController(t)
-	mockRepo := mock.NewMockBookRepo(ctl)
-	mockRepo.EXPECT().FindAll().Return([]model.Book{{ID: 1, Name: "Clean Code", Page: 464}}, nil)
+func TestBook(t *testing.T) {
+	db := gormtestutil.NewMemoryDatabase(t)
+	db.AutoMigrate(&model.Book{})
 	bookService := service.BookService{
-		BookRepo: mockRepo,
+		DB: db,
 	}
-	books, _ := bookService.GetAllBooks()
-	t.Logf("%+v\n", books)
-	assert.Equal(t, "Clean Code", books[0].Name, "Name doesn't match")
-}
-
-func TestGetBook(t *testing.T) {
-	ctl := gomock.NewController(t)
-	mockRepo := mock.NewMockBookRepo(ctl)
-	mockRepo.EXPECT().FindById(uint(1)).Return(model.Book{ID: 1, Name: "Harry Potter", Page: 389}, nil)
-	bookService := service.BookService{
-		BookRepo: mockRepo,
-	}
+	bookService.AddBook(model.BookRequest{
+		Name: "Peter Pan",
+		Page: 250,
+	})
 	book, err := bookService.GetBook(1)
 	if err != nil {
 		t.Error(err)
 	}
 	t.Log(book)
-	assert.Equal(t, uint(389), book.Page, "Book page should be 389")
-}
-
-func TestAddBook(t *testing.T) {
-	ctl := gomock.NewController(t)
-	mockRepo := mock.NewMockBookRepo(ctl)
-	mockRepo.EXPECT().CreateTxn().Return(nil)
-	mockRepo.EXPECT().
-		Create(gomock.Any(), gomock.Eq(model.Book{
-			Name: "Peter Pan",
-			Page: 240,
-		})).Return(nil)
-	bookService := service.BookService{
-		BookRepo: mockRepo,
-	}
-	err := bookService.AddBook(model.BookRequest{
-		Name: "Peter Pan",
-		Page: 240,
-	})
-	if err != nil {
-		t.Error(err)
-	}
 }

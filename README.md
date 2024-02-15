@@ -73,16 +73,6 @@ Try the URL `http://localhost:8080/healthcheck`, and you should see `{"status": 
 curl -X GET http://localhost:8080/health
 ```
 
-## Creating mock
-To create mock structs you have to install the [mockgen](https://github.com/uber-go/mock) tool on your local machine.
-
-Example:
-```shell
-mockgen -package mock \
--destination test/mock/mock_book_repo.go \
-github.com/serod11/gofiber-boilerplate/pkg/repo BookRepo
-```
-
 ## Authors
 - [Satjan](https://github.com/satjan)
 - [Ser-Od](https://github.com/serod11)

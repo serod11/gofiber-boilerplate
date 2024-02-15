@@ -6,6 +6,7 @@ package db
 
 import (
 	"github.com/serod11/gofiber-boilerplate/pkg/config"
+	"github.com/serod11/gofiber-boilerplate/pkg/model"
 	"log"
 	"os"
 	"time"
@@ -51,7 +52,7 @@ func Init(config config.Config) *gorm.DB {
 
 func RegisterTables(db *gorm.DB) {
 	err := db.AutoMigrate(
-	//&model.Book{},
+		&model.Book{},
 	)
 	if err != nil {
 		return
