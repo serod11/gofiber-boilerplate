@@ -2,7 +2,7 @@
  * @author serod
  */
 
-package service
+package test
 
 import (
 	"github.com/ing-bank/gormtestutil"

@@ -6,3 +6,6 @@ run-live:
 
 build:
 	go build -o build/main cmd/server/main.go
+
+unit-test:
+	go test ./test/... -v

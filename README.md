@@ -56,15 +56,19 @@ make run
 # requires air to be installed locally (https://github.com/cosmtrek/air)
 make run-live
 
+# run unit test
+make unit-test
+
 # build binary executable
 make build
 ```
 
-At this time, you have a REST API server running at `http://127.0.0.1:8080`. It provides the following endpoints:
+At this time, you have a REST API server running at `http://127.0.0.1:8080`. It provides following endpoints:
 
 * `GET /health`: a healthcheck service
 * `GET /book`: returns all books from database book table
 * `GET /book/:id`: returns a book by id
+* `POST /book`: add new book
 
 Try the URL `http://localhost:8080/healthcheck`, and you should see `{"status": "OK"}` displayed.
 
