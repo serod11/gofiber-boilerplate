@@ -27,8 +27,8 @@ The codebase uses the following Go packages.
 │   └── server           the API server application
 ├── pkg                  reusable packages
 │   ├── config           config
+│   ├── handler          routes and handlers
 │   ├── model            database entities
-│   ├── repo             data access layer
 │   ├── service          bussiness logic
 │   └── utils            utility functions like initialize database connection 
 └── test                 test files   
