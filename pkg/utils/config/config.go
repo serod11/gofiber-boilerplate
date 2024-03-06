@@ -17,7 +17,7 @@ type Config struct {
 
 func LoadConfig() (c Config, err error) {
 	if os.Getenv("GO_ENV") != "PRODUCTION" {
-		if e := godotenv.Load("pkg/config/envs/.env"); e != nil {
+		if e := godotenv.Load("pkg/utils/config/envs/.env"); e != nil {
 			return Config{}, e
 		}
 	}

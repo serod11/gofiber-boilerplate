@@ -2,11 +2,11 @@
  * @author serod
  */
 
-package db
+package redis
 
 import (
 	"github.com/go-redis/redis/v8"
-	"github.com/serod11/gofiber-boilerplate/pkg/config"
+	"github.com/serod11/gofiber-boilerplate/pkg/utils/config"
 )
 
 func NewRedisClient(c config.Config) *redis.Client {

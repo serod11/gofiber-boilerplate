@@ -6,9 +6,11 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/serod11/gofiber-boilerplate/pkg/config"
-	"github.com/serod11/gofiber-boilerplate/pkg/handlers"
-	"github.com/serod11/gofiber-boilerplate/pkg/utils/db"
+	"github.com/serod11/gofiber-boilerplate/pkg/adapters/rest"
+	"github.com/serod11/gofiber-boilerplate/pkg/domain/repository"
+	"github.com/serod11/gofiber-boilerplate/pkg/domain/service"
+	"github.com/serod11/gofiber-boilerplate/pkg/infra/postgres"
+	"github.com/serod11/gofiber-boilerplate/pkg/utils/config"
 	"log"
 )
 
@@ -19,8 +21,8 @@ func main() {
 		log.Fatalln("Failed at config", e)
 	}
 
-	// initialize db connection
-	conn := db.Init(c)
+	// initialize postgres connection
+	conn := postgres.Init(c)
 
 	// REST API server [gofiber]
 	app := fiber.New()
@@ -28,7 +30,10 @@ func main() {
 		return ctx.JSON(fiber.Map{"status": "OK"})
 	})
 
-	handlers.RegisterRoutes(app, conn)
+	bookRepo := repository.NewBookRepo(conn)
+	bookService := service.NewBookService(bookRepo)
+
+	rest.RegisterRoutes(app, bookService)
 
 	app.Listen(":8080") // use c.Port instead
 }

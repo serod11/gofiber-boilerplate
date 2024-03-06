@@ -2,11 +2,10 @@
  * @author serod
  */
 
-package db
+package postgres
 
 import (
-	"github.com/serod11/gofiber-boilerplate/pkg/config"
-	"github.com/serod11/gofiber-boilerplate/pkg/model"
+	"github.com/serod11/gofiber-boilerplate/pkg/utils/config"
 	"log"
 	"os"
 	"time"
@@ -51,9 +50,7 @@ func Init(config config.Config) *gorm.DB {
 }
 
 func RegisterTables(db *gorm.DB) {
-	err := db.AutoMigrate(
-		&model.Book{},
-	)
+	err := db.AutoMigrate()
 	if err != nil {
 		return
 	}
